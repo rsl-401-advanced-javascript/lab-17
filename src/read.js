@@ -6,8 +6,12 @@ const {
 } = require('util');
 const fsReadFile = promisify(fs.readFile);
 
-const read = async file => {
-  return await fsReadFile(file);
+const read = async (file, client) => {
+  try {
+    return await fsReadFile(file);
+  } catch (err) {
+    client.write(`Problem with ${file}!`);
+  }
 };
 
 module.exports = read;

@@ -6,9 +6,13 @@ const {
 } = require('util');
 const fsWriteFile = promisify(fs.writeFile);
 
-const write = async (file, buffer) => {
-  await fsWriteFile(file, buffer);
-  console.log(`${file} uppered!`);
+const write = async (file, buffer, client) => {
+  try {
+    await fsWriteFile(file, buffer);
+    client.write(`${file} uppered!`);
+  } catch (err) {
+    client.write(`Problem with ${file}!`);
+  }
 };
 
 module.exports = write;

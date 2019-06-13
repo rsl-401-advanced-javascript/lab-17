@@ -1,7 +1,11 @@
 'use strict';
 
-const upper = buffer => {
-  return buffer.toString().toUpperCase();
+const upper = (buffer, client) => {
+  try {
+    return buffer.toString().toUpperCase();
+  } catch (err) {
+    client.write('Buffer undefined!');
+  }
 };
 
 module.exports = upper;
