@@ -9,9 +9,16 @@ const fsWriteFile = promisify(fs.writeFile);
 const write = async (file, buffer, client) => {
   try {
     await fsWriteFile(file, buffer);
-    client.write(`${file} uppered!`);
+    const data = JSON.stringify({
+      type: 'save',
+      message: `${file} saved!`
+    });
+    client.write(data);
   } catch (err) {
-    client.write(`Problem with ${file}!`);
+    client.write(JSON.stringify({
+      type: 'error',
+      message: err
+    }));
   }
 };
 

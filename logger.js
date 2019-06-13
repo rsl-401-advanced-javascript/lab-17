@@ -7,7 +7,11 @@ const PORT = process.env.PORT || 3001;
 
 client.connect(PORT, 'localhost', () => console.log(`Connected to port ${PORT}!`));
 
-const logger = (type, message) => {
+const logger = data => {
+  let {
+    type,
+    message
+  } = JSON.parse(data);
   switch (type) {
     case 'save':
       console.log(message);
@@ -18,6 +22,6 @@ const logger = (type, message) => {
   }
 };
 
-client.on('save', logger);
+client.on('data', logger);
 client.on('error', logger);
 module.exports = logger;

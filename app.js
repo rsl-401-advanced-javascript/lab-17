@@ -4,7 +4,7 @@ const net = require('net');
 const client = new net.Socket;
 const PORT = process.env.PORT || 3001;
 
-client.connect(PORT, 'localhost', () => console.log(`Connected to port ${PORT}!`))
+client.connect(PORT, 'localhost', () => alterFile(file));
 
 const read = require('./src/read');
 const upper = require('./src/upper');
@@ -17,4 +17,3 @@ const alterFile = async file => {
 };
 
 let file = process.argv.slice(2).shift();
-alterFile(file);

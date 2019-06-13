@@ -10,7 +10,10 @@ const read = async (file, client) => {
   try {
     return await fsReadFile(file);
   } catch (err) {
-    client.write(`Problem with ${file}!`);
+    client.write(JSON.stringify({
+      type: 'error',
+      message: err
+    }));
   }
 };
 

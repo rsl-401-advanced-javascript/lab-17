@@ -4,7 +4,10 @@ const upper = (buffer, client) => {
   try {
     return buffer.toString().toUpperCase();
   } catch (err) {
-    client.write('Buffer undefined!');
+    client.write(JSON.stringify({
+      type: 'error',
+      message: err
+    }));
   }
 };
 
