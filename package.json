@@ -2,9 +2,12 @@
   "name": "events-lab",
   "version": "1.0.0",
   "description": "Events Lab",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "start": "node .",
+    "watch": "nodemon .",
+    "logger": "nodemon logger.js"
   },
   "author": "",
   "license": "MIT",
@@ -12,6 +15,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1"
   }
 }

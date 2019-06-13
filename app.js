@@ -1,17 +1,19 @@
 'use strict';
 
-const fs = require('fs');
+const net = require('net');
+const client = new net.Socket;
+const PORT = process.env.PORT || 3001;
 
-const alterFile = (file) => {
-  fs.readFile( file, (err, data) => {
-    if(err) { throw err; }
-    let text = data.toString().toUpperCase();
-    fs.writeFile( file, Buffer.from(text), (err, data) => {
-      if(err) { throw err; }
-      console.log(`${file} saved`);
-    });
-  });
+client.connect(PORT, 'localhost', () => alterFile(file));
+
+const read = require('./src/read');
+const upper = require('./src/upper');
+const write = require('./src/write');
+
+const alterFile = async file => {
+  const data = await read(file, client);
+  let text = upper(data, client);
+  if (text) await write(file, Buffer.from(text), client);
 };
 
 let file = process.argv.slice(2).shift();
-alterFile(file);
