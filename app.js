@@ -1,16 +1,13 @@
 'use strict';
 
-const fs = require('fs');
+const read = require('./src/read');
+const upper = require('./src/upper');
+const write = require('./src/write');
 
-const alterFile = (file) => {
-  fs.readFile( file, (err, data) => {
-    if(err) { throw err; }
-    let text = data.toString().toUpperCase();
-    fs.writeFile( file, Buffer.from(text), (err, data) => {
-      if(err) { throw err; }
-      console.log(`${file} saved`);
-    });
-  });
+const alterFile = async file => {
+  const data = await read(file);
+  let text = upper(data);
+  await write(file, Buffer.from(text));
 };
 
 let file = process.argv.slice(2).shift();
